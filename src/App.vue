@@ -7,13 +7,15 @@
     <v-main>
       <router-view />
     </v-main>
-
-    <navigation />
+    
+    <Navigation />
+    
   </v-app>
 </template>
 
 <script>
-  import Navigation from "@/components/Navigation"
+  import Navigation from "./components/MenuComponent.vue"
+  
   export default {
     name: "App",
     components: { Navigation },

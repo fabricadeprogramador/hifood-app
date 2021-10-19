@@ -1,13 +1,11 @@
 <template>
-  <div>
     <v-bottom-navigation v-model="value" grow>
-      <v-btn value="recent" v-for="(item, index) in itens" :key="index">
+      <v-btn v-for="(item, index) in itens" :key="index" :to="item.link">
         <span>{{ item.rota }}</span>
 
         <v-icon>{{ item.icone }}</v-icon>
       </v-btn>
     </v-bottom-navigation>
-  </div>
 </template>
 
 <script>
@@ -17,19 +15,23 @@
       itens: [
         {
           rota: "Home",
-          icone: "mdi-home"
+          icone: "mdi-home",
+          link: "/"
         },
         {
           rota: "Pedidos",
-          icone: "mdi-tag"
+          icone: "mdi-tag",
+          link: "/pedidos"
         },
         {
           rota: "Perfil",
-          icone: "mdi-account"
+          icone: "mdi-account",
+          link: "/perfil"
         },
         {
           rota: "Carrinho",
-          icone: "mdi-cart"
+          icone: "mdi-cart",
+          link: "/carrinho"
         }
       ]
     })

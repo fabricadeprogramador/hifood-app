@@ -9,6 +9,21 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home
+  },
+  {
+    path: "/pedidos",
+    name: "Pedidos",
+    component: () => import('./../views/Pedidos.vue')
+  },
+  {
+    path: "/perfil",
+    name: "Perfil",
+    component: () => import("./../views/Perfil.vue")
+  },
+  {
+    path: "/carrinho",
+    name: "Carrinho",
+    component: () => import("./../views/Carrinho.vue")
   }
   // {
   //   path: '/about',
