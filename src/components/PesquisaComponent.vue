@@ -1,7 +1,7 @@
 <template>
-    <div>
-        Pesquisar...
-    </div>
+  <div class="text-center">
+    <v-text-field :rules="rules" placeholder="Pesquisar"></v-text-field>
+  </div>
 </template>
 
 <script>
