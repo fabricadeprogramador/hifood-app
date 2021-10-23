@@ -1,6 +1,6 @@
 <template>
-    <v-bottom-navigation v-model="value" grow>
-      <v-btn v-for="(item, index) in itens" :key="index" :to="item.link">
+    <v-bottom-navigation v-model="value" grow color="#ff5945" height>
+      <v-btn v-for="(item, index) in itens" :key="index" :to="item.link" height="50">
         <span>{{ item.rota }}</span>
 
         <v-icon>{{ item.icone }}</v-icon>
@@ -24,14 +24,14 @@
           link: "/pedidos"
         },
         {
-          rota: "Perfil",
-          icone: "mdi-account",
-          link: "/perfil"
-        },
-        {
           rota: "Carrinho",
           icone: "mdi-cart",
           link: "/carrinho"
+        },
+        {
+          rota: "Perfil",
+          icone: "mdi-account",
+          link: "/perfil"
         }
       ]
     })

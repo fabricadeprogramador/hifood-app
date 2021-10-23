@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
+    <v-app-bar app color="#ff5945" dark>
       Hifood
     </v-app-bar>
 
