@@ -1,5 +1,5 @@
 <template>
-    <v-bottom-navigation v-model="value" grow color="#ff5945" height>
+    <v-bottom-navigation v-model="value" grow color="#ff5945" height fixed>
       <v-btn v-for="(item, index) in itens" :key="index" :to="item.link" height="50">
         <span>{{ item.rota }}</span>
 

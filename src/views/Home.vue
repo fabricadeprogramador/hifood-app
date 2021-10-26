@@ -10,16 +10,22 @@
       <!-- LISTA DE PRODUTOS (COMPONENT) -->
       <listaProdutoComponent />
 
+      <!-- DETALHE PRODUTO -->
+      <detalheProdutoComponent/>
+
+
   </v-container>
 </template>
 
 <script>
 import listaProdutoComponent from "./../components/ProdutoComponent.vue";
+import detalheProdutoComponent from "./../components/ProdutoDetalheComponent.vue";
 import listaCategoriaComponent from "./../components/CategoriaComponent.vue";
 import pesquisa from "./../components/PesquisaComponent.vue";
 
+
 export default {
-   components: { listaProdutoComponent, listaCategoriaComponent, pesquisa },
+   components: { listaProdutoComponent, detalheProdutoComponent ,listaCategoriaComponent, pesquisa },
    name: "Home",
 
    data() {
