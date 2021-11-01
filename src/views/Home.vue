@@ -2,30 +2,24 @@
    <v-container>
 
       <!-- PESQUISAR -->
-      <pesquisa />
+      <pesquisaComponent />
 
       <!-- LISTA DE CATEGORIAS (COMPONENT) -->
-      <listaCategoriaComponent />
+      <categoriaComponent />
 
       <!-- LISTA DE PRODUTOS (COMPONENT) -->
-      <listaProdutoComponent />
-
-      <!-- DETALHE PRODUTO -->
-      <detalheProdutoComponent/>
-
+      <produtoListComponent />
 
   </v-container>
 </template>
 
 <script>
-import listaProdutoComponent from "./../components/ProdutoComponent.vue";
-import detalheProdutoComponent from "./../components/ProdutoDetalheComponent.vue";
-import listaCategoriaComponent from "./../components/CategoriaComponent.vue";
-import pesquisa from "./../components/PesquisaComponent.vue";
-
+import pesquisaComponent from "./../components/PesquisaComponent.vue";
+import categoriaComponent from "./../components/CategoriaComponent.vue";
+import produtoListComponent from "./../components/ProdutoListComponent.vue";
 
 export default {
-   components: { listaProdutoComponent, detalheProdutoComponent ,listaCategoriaComponent, pesquisa },
+   components: { produtoListComponent, categoriaComponent, pesquisaComponent },
    name: "Home",
 
    data() {

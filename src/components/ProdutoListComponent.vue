@@ -8,6 +8,7 @@
 
     <v-row>
       <v-col>
+        <!-- EXIBE LISTA DE PRODUTOS -->
         <v-card
           class="d-flex mb-1"
           elevation="1"
@@ -27,23 +28,42 @@
             <v-img :src="item.img"></v-img>
           </v-avatar>
         </v-card>
+
+        <!-- EXIBE DETALHES DO PRODUTO AO CLICAR -->
+        <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+          <produtoDetailsComponent :prop1="produtoSelecionado" />
+        </v-dialog>
       </v-col>
     </v-row>
 
-    <!-- DETALHE PRODUTO -->
-    <detalheProdutoComponent :prop1="exibeDetalheProduto" />
   </div>
 </template>
 
 <script>
-import detalheProdutoComponent from "./../components/ProdutoDetalheComponent.vue";
+import produtoDetailsComponent from "./../components/ProdutoDetailsComponent.vue";
 
 export default {
-  components: { detalheProdutoComponent },
+  components: { produtoDetailsComponent },
 
   data() {
     return {
-      exibeDetalheProduto: "",
+      dialog: false,
+      
+      produtoSelecionado: {
+        produto: {
+          id: 1,
+          nome: "Hot-Dog Simples",
+          descricao:
+            "Pão, Salsicha, Molho Especial e Batata Palha. Pão Moderno Salsicha, Molho Especial e Batata Palha.",
+          valor: 10.95,
+          categoria: "Lanches",
+          qtdDisponivel: 10,
+          situacao: "Ativo",
+          img: "https://conteudo.imguol.com.br/c/entretenimento/9d/2020/05/26/hamburguer-recheado-na-churrasqueira-1590524861807_v2_4x3.jpg"
+        },
+        dialog: this.dialog
+      },
+      
       produtos: [
         {
           id: 1,
@@ -58,10 +78,10 @@ export default {
         },
         {
           id: 1,
-          nome: "Hot-Dog Simples",
+          nome: "Hot-Dog Simples 2",
           descricao: "Pão, Salsicha, Molho Especial e Batata Palha.",
           valor: 10.95,
-          categoria: "",
+          categoria: "Bebidas",
           qtdDisponivel: 10,
           situacao: "Ativo",
           img: "https://conteudo.imguol.com.br/c/entretenimento/9d/2020/05/26/hamburguer-recheado-na-churrasqueira-1590524861807_v2_4x3.jpg",
@@ -82,8 +102,7 @@ export default {
 
   methods: {
     btnAbreDetalhes() {
-      this.exibeDetalheProduto = "teste";
-      
+      this.dialog = true;
     },
   },
 };
