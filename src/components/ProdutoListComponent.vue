@@ -14,14 +14,21 @@
           elevation="1"
           v-for="(item, index) in produtos"
           :key="index"
-          @click="btnAbreDetalhes"
+          @click="btnAbreDetalhes(item)"
         >
           <div>
-            <v-card-title class="text-h6">{{ item.nome }}</v-card-title>
+            <v-card-title class="text-h6">{{
+              item.nome.substr(0, 30)
+            }}</v-card-title>
             <v-card-subtitle class="pb-0 mb-0">{{
               item.descricao.substr(0, 60) + "..."
             }}</v-card-subtitle>
-            <v-card-title class="pt-0 mt-0">R$ {{ item.valor }}</v-card-title>
+            <v-card-title class="pt-0 mt-0">{{
+              item.valor.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              })
+            }}</v-card-title>
           </div>
 
           <v-avatar class="" size="140" tile>
@@ -30,12 +37,19 @@
         </v-card>
 
         <!-- EXIBE DETALHES DO PRODUTO AO CLICAR -->
-        <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-          <produtoDetailsComponent :prop1="produtoSelecionado" @actionFechaTelaDetails="btnFechaDetalhes()" />
+        <v-dialog
+          v-model="dialog"
+          fullscreen
+          hide-overlay
+          transition="dialog-bottom-transition"
+        >
+          <produtoDetailsComponent
+            :prop1="produtoSelecionado"
+            @actionFechaTelaDetails="btnFechaDetalhes()"
+          />
         </v-dialog>
       </v-col>
     </v-row>
-
   </div>
 </template>
 
@@ -48,9 +62,38 @@ export default {
   data() {
     return {
       dialog: false,
-      
+
       produtoSelecionado: {
-        produto: {
+        // id: 1,
+        // nome: "Hot-Dog Simples",
+        // descricao:
+        //   "Pão, Salsicha, Molho Especial e Batata Palha. Pão Moderno Salsicha, Molho Especial e Batata Palha.",
+        // valor: 10.95,
+        // categoria: "Lanches",
+        // qtdDisponivel: 10,
+        // situacao: "Ativo",
+        // img: "https://conteudo.imguol.com.br/c/entretenimento/9d/2020/05/26/hamburguer-recheado-na-churrasqueira-1590524861807_v2_4x3.jpg",
+        // adicionais: [
+        //   {
+        //     id: 1,
+        //     nome: "Maionese Caseira",
+        //     valor: 2.0,
+        //   },
+        //   {
+        //     id: 2,
+        //     nome: "Salsisha",
+        //     valor: 1.0,
+        //   },
+        //   {
+        //     id: 3,
+        //     nome: "Ovo",
+        //     valor: 1.5,
+        //   },
+        // ],
+      },
+
+      produtos: [
+        {
           id: 1,
           nome: "Hot-Dog Simples",
           descricao:
@@ -59,74 +102,88 @@ export default {
           categoria: "Lanches",
           qtdDisponivel: 10,
           situacao: "Ativo",
-          img: "https://conteudo.imguol.com.br/c/entretenimento/9d/2020/05/26/hamburguer-recheado-na-churrasqueira-1590524861807_v2_4x3.jpg"
-        },
-
-        adicionais: [
-          {
-            id: 1,
-            nome: "Maionese Caseira",
-            valor: 2.00 
-          },
-          {
-            id: 2,
-            nome: "Salsisha",
-            valor: 1.00 
-          },
-          {
-            id: 3,
-            nome: "Ovo",
-            valor: 1.50 
-          }
-        ],
-
-        dialog: this.dialog
-      },
-      
-      produtos: [
-        {
-          id: 1,
-          nome: "Hot-Dog Simples",
-          descricao:
-            "Pão, Salsicha, Molho Especial e Batata Palha. Pão Moderno Salsicha, Molho Especial e Batata Palha.",
-          valor: 10.95,
-          categoria: "",
-          qtdDisponivel: 10,
-          situacao: "Ativo",
           img: "https://conteudo.imguol.com.br/c/entretenimento/9d/2020/05/26/hamburguer-recheado-na-churrasqueira-1590524861807_v2_4x3.jpg",
+          adicionais: [
+            {
+              id: 1,
+              nome: "Maionese Caseira",
+              valor: 2.0,
+            },
+            {
+              id: 2,
+              nome: "Salsisha",
+              valor: 1.0,
+            },
+            {
+              id: 3,
+              nome: "Ovo",
+              valor: 1.5,
+            },
+          ],
         },
         {
           id: 2,
-          nome: "Hot-Dog Simples 2",
-          descricao: "Pão, Salsicha, Molho Especial e Batata Palha.",
-          valor: 22.70,
+          nome: "Suco de Laranja",
+          descricao:
+            "Polpa de laranja 100% natural com água, gelo, açucar e aquele toque finalite.",
+          valor: 12.7,
           categoria: "Bebidas",
           qtdDisponivel: 10,
           situacao: "Ativo",
-          img: "https://conteudo.imguol.com.br/c/entretenimento/9d/2020/05/26/hamburguer-recheado-na-churrasqueira-1590524861807_v2_4x3.jpg",
+          img: "https://img.elo7.com.br/product/zoom/262F374/adesivo-parede-decoracao-suco-de-laranja-fruta-lanchonete-adesivo-decorativo.jpg",
+          adicionais: [
+            {
+              id: 1,
+              nome: "Copo Personalizado",
+              valor: 3.00,
+            },
+            {
+              id: 2,
+              nome: "Menta",
+              valor: 2.50,
+            }
+          ],
         },
         {
           id: 3,
-          nome: "Hot-Dog Simples",
+          nome: "Frango ao Creme",
           descricao: "Pão, Salsicha, Molho Especial e Batata Palha.",
-          valor: 11.90,
-          categoria: "",
+          valor: 11.9,
+          categoria: "Pizza",
           qtdDisponivel: 10,
           situacao: "Ativo",
-          img: "https://conteudo.imguol.com.br/c/entretenimento/9d/2020/05/26/hamburguer-recheado-na-churrasqueira-1590524861807_v2_4x3.jpg",
+          img: "https://d1uz88p17r663j.cloudfront.net/resized/f7e3e253ba96faaf75334e19e0f53c7a_pizza-liquidificador-receitas-nestle_1200_600.jpg",
+          adicionais: [
+            {
+              id: 1,
+              nome: "Maionese Caseira",
+              valor: 2.0,
+            },
+            {
+              id: 2,
+              nome: "Catupiry",
+              valor: 3.0,
+            },
+            {
+              id: 3,
+              nome: "Ovo",
+              valor: 1.5,
+            },
+          ],
         },
       ],
     };
   },
 
   methods: {
-    btnAbreDetalhes() {
+    btnAbreDetalhes(item) {
+      this.produtoSelecionado = item;
       this.dialog = true;
     },
 
     btnFechaDetalhes() {
       this.dialog = false;
-    }
+    },
   },
 };
 </script>

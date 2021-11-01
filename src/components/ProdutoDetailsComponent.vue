@@ -1,15 +1,16 @@
 <template>
   <v-card rounded="0">
+
     <!-- IMAGEM BACKGROUND -->
     <v-container class="page--image" :style="style">
       <div class="page--degrade">
         <div class="page--close" @click="fecharTelaDetails()">
-          <v-icon>mdi-close</v-icon>
+          <v-icon color="#fff">mdi-close</v-icon>
         </div>
 
         <div class="page--details">
-          <h2>{{ prop1.produto.nome }}</h2>
-          <span>{{ prop1.produto.descricao }}</span>
+          <h2>{{ prop1.nome }}</h2>
+          <span>{{ prop1.descricao }}</span>
         </div>
       </div>
     </v-container>
@@ -19,7 +20,7 @@
       <v-row>
         <v-col align="center">
           <v-btn height="30" elevation="1" @click="addMenos()">
-            <v-icon>mdi-plus</v-icon>
+            <v-icon>mdi-window-minimize</v-icon>
           </v-btn>
 
           <span class="contador">{{ contador }}</span>
@@ -30,9 +31,10 @@
         </v-col>
 
         <v-col align="center">
-          <h3>
-            {{ total.toLocaleString("pt-BR", {style: "currency", currency: "BRL"}) }}
-          </h3>
+          <h3 style="padding:0;margin:0;">{{ subTotal.toLocaleString("pt-BR", {style: "currency", currency: "BRL"}) }}</h3>
+          <p style="font-size:14px;padding:0;margin:0;" v-if="contador!=1">
+            {{ prop1.valor.toLocaleString("pt-BR", {style: "currency", currency: "BRL"}) }} (unidade)
+          </p>
         </v-col>
       </v-row>
     </v-container>
@@ -76,7 +78,7 @@
         <v-col align="left">
           <v-btn height="50" elevation="1" color="#da3444" dark>
             <v-icon>mdi-cart</v-icon>
-            <span>FINALIZAR</span>
+            <span>ADICIONAR</span>
           </v-btn>
         </v-col>
       </v-row>
@@ -107,6 +109,7 @@
   left: 0;
   right: 0;
   text-align: center;
+  padding: 0px 10px;
 }
 
 .contador {
@@ -122,7 +125,7 @@ export default {
   computed: {
     style() {
       return `
-        background-image: url("${this.prop1.produto.img}");
+        background-image: url("${this.prop1.img}");
         background-size: cover;
         background-position: center;
       `;
@@ -132,20 +135,20 @@ export default {
   data() {
     return {
       contador: 1,
-      total: this.prop1.produto.valor,
+      subTotal: this.prop1.valor,
     };
   },
 
   methods: {
     addMais() {
       this.contador++;
-      this.total = this.prop1.produto.valor * this.contador;
+      this.subTotal = this.prop1.valor * this.contador;
     },
 
     addMenos() {
       if (this.contador > 1) {
         this.contador--;
-        this.total = this.prop1.produto.valor * this.contador;
+        this.subTotal = this.prop1.valor * this.contador;
       }
     },
 
