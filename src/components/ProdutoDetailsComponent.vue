@@ -1,49 +1,86 @@
 <template>
   <v-card rounded="0">
-    <div class="page--image" :style="style">
+    <!-- IMAGEM BACKGROUND -->
+    <v-container class="page--image" :style="style">
       <div class="page--degrade">
-        <div class="page--close" @click="dialog = false">
+        <div class="page--close" @click="fecharTelaDetails()">
           <v-icon>mdi-close</v-icon>
         </div>
-        
+
         <div class="page--details">
           <h2>{{ prop1.produto.nome }}</h2>
           <span>{{ prop1.produto.descricao }}</span>
         </div>
       </div>
-    </div>
+    </v-container>
 
-    <v-container class="mt-3" color="#ff5945">
+    <!-- CONTADOR DE PREÇO -->
+    <v-container class="mt-6"> 
       <v-row>
         <v-col align="center">
-          <v-btn height="30" @click="addMenos()">
+          <v-btn height="30" elevation="1" @click="addMenos()">
             <v-icon>mdi-plus</v-icon>
           </v-btn>
 
           <span class="contador">{{ contador }}</span>
 
-          <v-btn height="30" @click="addMais()">
+          <v-btn height="30" elevation="1" @click="addMais()">
             <v-icon>mdi-plus</v-icon>
           </v-btn>
         </v-col>
 
         <v-col align="center">
-          <h3>{{ total.toLocaleString('pt-BR', {style:'currency', currency:'BRL'}) }}</h3>
+          <h3>
+            {{ total.toLocaleString("pt-BR", {style: "currency", currency: "BRL"}) }}
+          </h3>
         </v-col>
       </v-row>
     </v-container>
 
-    <v-bottom-navigation height fixed horizontal grow>
-      <v-btn height="50" @click="dialog = false">
-        <span>CANCELAR</span>
-        <v-icon>mdi-close</v-icon>
-      </v-btn>
+    <!-- ADICIONAIS -->
+    <v-container> 
+      <v-row>
+        <v-col>
+          <v-list>
+            <v-subheader>Adicionais</v-subheader>
 
-      <v-btn height="50" @click="dialog = false">
-        <span>FINALIZAR</span>
-        <v-icon>mdi-cart</v-icon>
-      </v-btn>
-    </v-bottom-navigation>
+            <v-list-item-group multiple>
+              <v-list-item v-for="(item, index) in prop1.adicionais" :key="index">
+                <template v-slot:default="{ active }">
+                  <v-list-item-action>
+                    <v-checkbox :input-value="active"></v-checkbox>
+                  </v-list-item-action>
+
+                  <v-list-item-content>
+                    <v-list-item-title>{{ item.nome }}</v-list-item-title>
+                    <v-list-item-subtitle>{{ item.valor.toLocaleString("pt-BR", {style: "currency", currency: "BRL"}) }} (unidade)</v-list-item-subtitle>
+                  </v-list-item-content>
+                </template>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <!-- BOTÕES RODAPÉ -->
+    <v-container> 
+      <v-row>
+        <v-col align="right">
+          <v-btn height="50" elevation="1" @click="fecharTelaDetails()">
+            <v-icon>mdi-close</v-icon>
+            <span>CANCELAR</span>
+          </v-btn>
+        </v-col>
+
+        <v-col align="left">
+          <v-btn height="50" elevation="1" color="#da3444" dark>
+            <v-icon>mdi-cart</v-icon>
+            <span>FINALIZAR</span>
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-card>
 </template>
 
@@ -95,7 +132,7 @@ export default {
   data() {
     return {
       contador: 1,
-      total: this.prop1.produto.valor
+      total: this.prop1.produto.valor,
     };
   },
 
@@ -106,11 +143,15 @@ export default {
     },
 
     addMenos() {
-      if(this.contador > 1){
+      if (this.contador > 1) {
         this.contador--;
         this.total = this.prop1.produto.valor * this.contador;
       }
-    }
-  }
+    },
+
+    fecharTelaDetails() {
+      this.$emit("actionFechaTelaDetails");
+    },
+  },
 };
 </script>

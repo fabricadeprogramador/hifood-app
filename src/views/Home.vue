@@ -2,7 +2,7 @@
    <v-container>
 
       <!-- PESQUISAR -->
-      <pesquisaComponent />
+      <!-- <pesquisaComponent /> -->
 
       <!-- LISTA DE CATEGORIAS (COMPONENT) -->
       <categoriaComponent />
