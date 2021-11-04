@@ -136,6 +136,11 @@ export default {
     return {
       contador: 1,
       subTotal: this.prop1.valor,
+      produtoVenda: {
+        produto: this.prop1,
+        qtd: 1,
+        subTotal: this.prop1.valor
+      }
     };
   },
 
@@ -143,12 +148,16 @@ export default {
     addMais() {
       this.contador++;
       this.subTotal = this.prop1.valor * this.contador;
+      
+      //função recalcular
     },
 
     addMenos() {
       if (this.contador > 1) {
         this.contador--;
         this.subTotal = this.prop1.valor * this.contador;
+
+        //função recalcular
       }
     },
 

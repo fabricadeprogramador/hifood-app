@@ -75,19 +75,19 @@ export default {
         // img: "https://conteudo.imguol.com.br/c/entretenimento/9d/2020/05/26/hamburguer-recheado-na-churrasqueira-1590524861807_v2_4x3.jpg",
         // adicionais: [
         //   {
-        //     id: 1,
         //     nome: "Maionese Caseira",
         //     valor: 2.0,
+        //     selecionado: false
         //   },
         //   {
-        //     id: 2,
         //     nome: "Salsisha",
         //     valor: 1.0,
+        //     selecionado: false
         //   },
         //   {
-        //     id: 3,
         //     nome: "Ovo",
         //     valor: 1.5,
+        //     selecionado: false
         //   },
         // ],
       },
@@ -105,19 +105,19 @@ export default {
           img: "https://conteudo.imguol.com.br/c/entretenimento/9d/2020/05/26/hamburguer-recheado-na-churrasqueira-1590524861807_v2_4x3.jpg",
           adicionais: [
             {
-              id: 1,
               nome: "Maionese Caseira",
               valor: 2.0,
+              selecionado: false
             },
             {
-              id: 2,
               nome: "Salsisha",
               valor: 1.0,
+              selecionado: false
             },
             {
-              id: 3,
               nome: "Ovo",
               valor: 1.5,
+              selecionado: false
             },
           ],
         },
@@ -133,14 +133,14 @@ export default {
           img: "https://img.elo7.com.br/product/zoom/262F374/adesivo-parede-decoracao-suco-de-laranja-fruta-lanchonete-adesivo-decorativo.jpg",
           adicionais: [
             {
-              id: 1,
               nome: "Copo Personalizado",
               valor: 3.00,
+              selecionado: false
             },
             {
-              id: 2,
               nome: "Menta",
               valor: 2.50,
+              selecionado: false
             }
           ],
         },
@@ -155,19 +155,19 @@ export default {
           img: "https://d1uz88p17r663j.cloudfront.net/resized/f7e3e253ba96faaf75334e19e0f53c7a_pizza-liquidificador-receitas-nestle_1200_600.jpg",
           adicionais: [
             {
-              id: 1,
               nome: "Maionese Caseira",
               valor: 2.0,
+              selecionado: false
             },
             {
-              id: 2,
               nome: "Catupiry",
               valor: 3.0,
+              selecionado: false
             },
             {
-              id: 3,
               nome: "Ovo",
               valor: 1.5,
+              selecionado: false
             },
           ],
         },
