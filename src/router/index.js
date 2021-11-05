@@ -16,14 +16,14 @@ const routes = [
     component: () => import('./../views/Pedidos.vue')
   },
   {
-    path: "/perfil",
-    name: "Perfil",
-    component: () => import("./../views/Perfil.vue")
-  },
-  {
     path: "/carrinho",
     name: "Carrinho",
     component: () => import("./../views/Carrinho.vue")
+  },
+  {
+    path: "/perfil",
+    name: "Perfil",
+    component: () => import("./../views/Perfil.vue")
   }
   // {
   //   path: '/about',
