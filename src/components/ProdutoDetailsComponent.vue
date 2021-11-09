@@ -9,8 +9,8 @@
         </div>
 
         <div class="page--details">
-          <h2>{{ produtoVenda.produto.nome }}</h2>
-          <span>{{ produtoVenda.produto.descricao }}</span>
+          <h2>{{ produtoSelecionadoProp.nome }}</h2>
+          <span>{{ produtoSelecionadoProp.descricao }}</span>
         </div>
       </div>
     </v-container>
@@ -23,17 +23,24 @@
             <v-icon>mdi-window-minimize</v-icon>
           </v-btn>
 
-          <span class="contador">{{ produtoVenda.qtd }}</span>
+          <span class="contador">{{ qtd }}</span>
 
           <v-btn height="30" elevation="1" @click="actionAddMais()">
             <v-icon>mdi-plus</v-icon>
           </v-btn>
         </v-col>
 
-        <v-col align="center">
-          <h3 style="padding:0;margin:0;">{{ produtoVenda.subTotal.toLocaleString("pt-BR", {style: "currency", currency: "BRL"}) }}</h3>
-          <p style="font-size:14px;padding:0;margin:0;" v-if="produtoVenda.qtd!=1">
-            {{ produtoVenda.produto.valor.toLocaleString("pt-BR", {style: "currency", currency: "BRL"}) }} (unidade)
+        <v-col align="center" v-if="primeiraExecucao">
+          <h3 style="padding:0;margin:0;">{{ produtoSelecionadoValorProp.toLocaleString("pt-BR", {style: "currency", currency: "BRL"}) }}</h3>
+          <p style="font-size:14px;padding:0;margin:0;" v-if="qtd!=1">
+            {{ produtoSelecionadoProp.valor.toLocaleString("pt-BR", {style: "currency", currency: "BRL"}) }} (unidade)
+          </p>
+        </v-col>
+
+        <v-col align="center" v-else>
+          <h3 style="padding:0;margin:0;">{{ subTotal.toLocaleString("pt-BR", {style: "currency", currency: "BRL"}) }}</h3>
+          <p style="font-size:14px;padding:0;margin:0;" v-if="qtd!=1">
+            {{ produtoSelecionadoProp.valor.toLocaleString("pt-BR", {style: "currency", currency: "BRL"}) }} (unidade)
           </p>
         </v-col>
       </v-row>
@@ -47,7 +54,7 @@
             <v-subheader>Adicionais</v-subheader>
 
             <v-list-item-group multiple>
-              <v-list-item v-for="(item, index) in produtoVenda.produto.adicionais" :key="index">
+              <v-list-item v-for="(item, index) in produtoSelecionadoProp.adicionais" :key="index">
                 <template>
                   <v-list-item-action>
                     <v-checkbox v-model="selected[index]" @click="actionAddAdicional(index)"></v-checkbox>
@@ -84,6 +91,7 @@
       </v-row>
     </v-container>
     <!-- {{produtoVenda}} -->
+    {{produtoSelecionadoProp}}
   </v-card>
 </template>
 
@@ -121,12 +129,12 @@
 
 <script>
 export default {
-  props: ["produtoSelecionadoProp"],
+  props: ["produtoSelecionadoProp", "produtoSelecionadoValorProp"],
 
   computed: {
     style() {
       return `
-        background-image: url("${this.produtoVenda.produto.imagem}");
+        background-image: url("${this.produtoSelecionadoProp.imagem}");
         background-size: cover;
         background-position: center;
       `;
@@ -138,48 +146,50 @@ export default {
   data() {
     return {
       selected: [],
-      produtoVenda: {
-        produto: this.produtoSelecionadoProp,
-        qtd: 1,
-        subTotal: this.produtoSelecionadoProp.valor
-      }
+      produtoVenda: {},
+      qtd: 1,
+      primeiraExecucao: true,
+      subTotal: this.produtoSelecionadoProp.valor
     };
   },
 
   methods: {
     actionAddMais() {
-      if(this.produtoVenda.produto.qtdDisponivel > this.produtoVenda.qtd) {
-        this.produtoVenda.qtd++;
-        this.calculaSubTotal(this.produtoVenda.produto.valor, this.produtoVenda.qtd);
+      if(this.produtoSelecionadoProp.qtdDisponivel > this.qtd) {
+        this.qtd++;
+        this.calculaSubTotal(this.produtoSelecionadoProp.valor, this.qtd);
+        this.primeiraExecucao = false;
       }
     },
 
     actionAddMenos() {
-      if (this.produtoVenda.qtd > 1) {
-        this.produtoVenda.qtd--;
-        this.calculaSubTotal(this.produtoVenda.produto.valor, this.produtoVenda.qtd);
+      if (this.qtd > 1) {
+        this.qtd--;
+        this.calculaSubTotal(this.produtoSelecionadoProp.valor, this.qtd);
+        this.primeiraExecucao = false;
       }
     },
 
     actionAddAdicional(i) {
-      if(this.produtoVenda.produto.adicionais[i].selecionado == false) {
-        this.produtoVenda.produto.adicionais[i].selecionado = true;
+      if(this.produtoSelecionadoProp.adicionais[i].selecionado == false) {
+        this.produtoSelecionadoProp.adicionais[i].selecionado = true;
       }else {
-        this.produtoVenda.produto.adicionais[i].selecionado = false;
+        this.produtoSelecionadoProp.adicionais[i].selecionado = false;
       }
 
-      this.calculaSubTotal(this.produtoVenda.produto.valor, this.produtoVenda.qtd);
+      this.calculaSubTotal(this.produtoSelecionadoProp.valor, this.qtd);
+      this.primeiraExecucao = false;
     },
 
     calculaSubTotal(valorP, qtdP) {
-      this.produtoVenda.subTotal = (valorP * qtdP);
+      this.subTotal = (valorP * qtdP);
 
       // Calculo com Adicionais
-      for (let i = 0; i < this.produtoVenda.produto.adicionais.length; i++) {
-        const itemAdicional = this.produtoVenda.produto.adicionais[i];
+      for (let i = 0; i < this.produtoSelecionadoProp.adicionais.length; i++) {
+        const itemAdicional = this.produtoSelecionadoProp.adicionais[i];
 
         if(itemAdicional.selecionado) {
-          this.produtoVenda.subTotal += itemAdicional.valor * qtdP;
+          this.subTotal += itemAdicional.valor * qtdP;
         }
       }
     },
@@ -187,6 +197,7 @@ export default {
     actionAddCarrinho() {},
 
     fecharTelaDetails() {
+      this.primeiraExecucao = true;
       this.$emit("actionFechaTelaDetails");
     }
   },

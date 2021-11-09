@@ -45,6 +45,7 @@
         >
           <produtoDetailsComponent
             :produtoSelecionadoProp="produtoSelecionado"
+            :produtoSelecionadoValorProp="produtoSelecionado.valor"
             @actionFechaTelaDetails="btnFechaDetalhes()"
           />
         </v-dialog>
@@ -104,7 +105,7 @@ export default {
 
   methods: {
     btnAbreDetalhes(item) {
-      this.produtoSelecionado = item;
+      this.produtoSelecionado = Object.assign({}, item);
       this.dialog = true;
     },
 
