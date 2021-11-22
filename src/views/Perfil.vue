@@ -13,8 +13,8 @@
         <v-col align="center">
           <form>
             <v-text-field
-              v-model="usuario"
-              label="Usuário"
+              v-model="email"
+              label="E-mail"
               required
             ></v-text-field>
             <v-text-field
@@ -53,87 +53,81 @@
       <v-form>
         <v-card-title class="text-h6">Dados para login:</v-card-title>
         <v-text-field
-          v-model="usuario"
-          label="Usuário"
+          v-model="cliente.usuario.email"
+          label="E-mail"
           required
           outlined
         ></v-text-field>
         <v-text-field
-          v-model="senha"
+          v-model="cliente.usuario.senha"
           label="Senha"
           required
           outlined
         ></v-text-field>
         <v-card-title class="text-h6">Dados pessoais:</v-card-title>
         <v-text-field
-          v-model="nome"
+          v-model="cliente.nome"
           label="Nome Completo"
           required
           outlined
         ></v-text-field>
         <v-text-field
-          v-model="email"
-          label="E-mail"
-          required
-          outlined
-        ></v-text-field>
-        <v-text-field
-          v-model="cpf"
+          v-model="cliente.cpf"
           label="CPF"
           required
           outlined
         ></v-text-field>
         <v-text-field
-          v-model="rg"
+          v-model="cliente.rg"
           label="RG"
           required
           outlined
         ></v-text-field>
         <v-text-field
-          v-model="data"
+          v-model="cliente.dataNasc"
           label="Data de Nascimento"
           required
           outlined
         ></v-text-field>
         <v-text-field
-          v-model="telefone"
+          v-model="cliente.telefone"
           label="Telefone"
           required
           outlined
         ></v-text-field>
         <v-card-title class="text-h6">Dados de entrega:</v-card-title>
         <v-text-field
-          v-model="cep"
+          v-model="cliente.endereco.cep"
           label="CEP"
           required
           outlined
         ></v-text-field>
         <v-text-field
-          v-model="endereco"
+          v-model="cliente.endereco.rua"
           label="Endereço"
           required
           outlined
         ></v-text-field>
         <v-text-field
-          v-model="numero"
+          v-model="cliente.endereco.num"
           label="Número"
           required
           outlined
         ></v-text-field>
         <v-text-field
-          v-model="bairro"
+          v-model="cliente.endereco.bairro"
           label="Bairro"
           required
           outlined
         ></v-text-field>
         <v-text-field
-          v-model="cidade"
+          v-model="cliente.endereco.cidade"
           label="Cidade"
           required
           outlined
         ></v-text-field>
         <v-text-field
-          v-model="uf"
+          v-model="cliente.endereco.uf"
           label="UF"
           required
           outlined
@@ -145,20 +139,44 @@
 </template>
 
 <script>
+import PerfilClient from "@/apiClient/PerfilClient";
 export default {
   name: "Perfil",
   data() {
     return {
       logo: require("./../assets/fast-food.png"),
       mostrarLogin: true,
+      cliente: {
+        nome: "",
+        cpf: "",
+        telefone: "",
+        rg: "",
+        dataNasc: "",
+        endereco: {
+          cep: "",
+          cidade: "",
+          bairro: "",
+          uf: "",
+          rua: "",
+          num: "",
+        },
+        usuario: { email: "", senha: "", tipo: "cliente", ativo: true },
+      },
     };
   },
   methods: {
     mostrarCadastro() {
       this.mostrarLogin = false;
     },
-    salvar() {
-      this.mostrarLogin = true;
+    async salvar() {
+      let novoCliente = this.cliente;
+      let resposta = await PerfilClient.inserir(novoCliente);
+
+      if (resposta.status == 200) {
+        this.mostrarLogin = true;
+      } else {
+        alert("Erro ao cadastrar cliente!");
+      }
     },
   },
 };
