@@ -1,13 +1,16 @@
 <template>
   <v-container>
-    <v-card v-if="mostrarLogin">
-      <v-row>
-
-        <v-img
-          :src="logo"
-          max-width="100"
-        ></v-img>
-        <h1 style="font-size: 35px">HiFood</h1>
+    <v-card
+      v-if="mostrarLogin"
+      flat
+    >
+      <v-row class="mt-5">
+        <v-col align="center">
+          <v-img
+            :src="user"
+            max-width="175"
+          ></v-img>
+        </v-col>
       </v-row>
       <v-row>
         <v-col align="center">
@@ -25,26 +28,35 @@
             <v-row>
               <v-col align="center">
                 <v-btn
-                  elevation="1"
-                  @click="actionAddCarrinho()"
+                  dark
+                  large
+                  color="#000050"
+                  class="width: 150px"
                 >
-                  <span>Login</span>
+                  Login
+                  <v-icon right>mdi-login-variant</v-icon>
                 </v-btn>
               </v-col>
             </v-row>
           </form>
           <v-row>
-            <v-col align="center">
-              <v-btn text>Esqueceu a senha?</v-btn>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col align="center">
+            <v-toolbar flat>
+              <v-spacer></v-spacer>
               <v-btn
                 text
+                small
                 @click="mostrarCadastro()"
               >Cadastre-se</v-btn>
-            </v-col>
+              <v-divider
+                vertical
+                inset
+              ></v-divider>
+              <v-btn
+                small
+                text
+              >Esqueceu a senha?</v-btn>
+              <v-spacer></v-spacer>
+            </v-toolbar>
           </v-row>
         </v-col>
       </v-row>
@@ -144,7 +156,7 @@ export default {
   name: "Perfil",
   data() {
     return {
-      logo: require("./../assets/fast-food.png"),
+      user: require("./../assets/user.png"),
       mostrarLogin: true,
       cliente: {
         nome: "",

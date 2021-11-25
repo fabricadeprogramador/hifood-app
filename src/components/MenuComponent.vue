@@ -2,13 +2,17 @@
   <v-bottom-navigation
     v-model="value"
     grow
-    color="#da3444"
+    color="#000050"
     height
     fixed
     app
   >
     <v-btn
-      v-for="(item, index) in itens"
+      v-for="
+    (item,
+    index)
+    in
+    itens"
       :key="index"
       :to="item.link"
       height="50"

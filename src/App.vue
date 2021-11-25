@@ -2,11 +2,14 @@
   <v-app>
     <v-app-bar
       app
-      color="#da3444"
+      color="#000050"
       dark
     >
 
-      <v-icon>mdi-hamburger</v-icon>
+      <v-img
+        :src="logo"
+        max-width="40"
+      ></v-img>
       <v-toolbar-title class="ml-2">Hi<b>food</b></v-toolbar-title>
 
       <v-spacer></v-spacer>
@@ -36,7 +39,10 @@ export default {
   name: "App",
   components: { Navigation },
   data() {
-    return {};
+    return {
+      logo: require("./assets/fast-food.png"),
+      user: require("./assets/user.png"),
+    };
   },
 };
 </script>
