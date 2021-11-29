@@ -1,5 +1,5 @@
 const axios = require("axios")
-const API_HOST = "https://hifood-api.herokuapp.com/"
+const API_HOST = "https://hifood-api.herokuapp.com"
 
 export default {
   listaProdutos() {
