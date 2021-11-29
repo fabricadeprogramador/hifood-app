@@ -61,7 +61,10 @@
         </v-col>
       </v-row>
     </v-card>
-    <v-card v-else>
+    <v-card
+      flat
+      v-else
+    >
       <v-form>
         <v-card-title class="text-h6">Dados para login:</v-card-title>
         <v-text-field
@@ -144,11 +147,22 @@
           required
           outlined
         ></v-text-field>
-        <v-btn
-          @click="salvar()"
-          color="#FE7028"
-          dark
-        >Cadastrar</v-btn>
+        <v-row>
+          <v-col align="center">
+            <v-btn
+              @click="salvar()"
+              color="#FE7028"
+              dark
+              class="ma-3"
+            >Cadastrar</v-btn>
+            <v-btn
+              @click="cancelar()"
+              color="#FE7028"
+              dark
+              class="ma-3"
+            >Cancelar</v-btn>
+          </v-col>
+        </v-row>
       </v-form>
     </v-card>
   </v-container>
@@ -183,6 +197,9 @@ export default {
   methods: {
     mostrarCadastro() {
       this.mostrarLogin = false;
+    },
+    cancelar() {
+      this.mostrarLogin = true;
     },
     async salvar() {
       let novoCliente = this.cliente;

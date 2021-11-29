@@ -23,10 +23,12 @@
           :key="produto.nome"
         >
           <v-row>
-            <v-col cols="4">
+            <v-col cols="12">
               <v-card-text>{{ produto.nomeProduto }}</v-card-text>
             </v-col>
-            <v-col cols="4">
+          </v-row>
+          <v-row>
+            <v-col cols="5">
               <v-card-text>
                 <v-btn icon>
                   <v-icon
@@ -42,7 +44,7 @@
                 </v-btn>
               </v-card-text>
             </v-col>
-            <v-col cols="4">
+            <v-col cols="5">
               <v-card-text>{{produto.valorTotProd.toLocaleString("pt-BR", {
                 style: "currency",
                 currency: "BRL",
