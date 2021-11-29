@@ -30,7 +30,7 @@
                 <v-btn
                   dark
                   large
-                  color="#000050"
+                  color="#FE7028"
                   class="width: 150px"
                 >
                   Login
@@ -144,7 +144,11 @@
           required
           outlined
         ></v-text-field>
-        <v-btn @click="salvar()">Cadastrar</v-btn>
+        <v-btn
+          @click="salvar()"
+          color="#FE7028"
+          dark
+        >Cadastrar</v-btn>
       </v-form>
     </v-card>
   </v-container>

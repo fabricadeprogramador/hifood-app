@@ -2,7 +2,7 @@
   <v-bottom-navigation
     v-model="value"
     grow
-    color="#000050"
+    color="#FE7028"
     height
     fixed
     app
